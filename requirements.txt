@@ -1,0 +1,8 @@
+django
+djangorestframework
+djangorestframework-simplejwt
+drf_spectacular
+drf_extensions
+psycopg2-binary
+django-simple-history
+pillow
