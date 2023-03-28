@@ -32,4 +32,27 @@ class TaskTestCase(TestSetUp):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Task.objects.all().count(), 1)        
         
+    #eliminar tareas
+    def test_delete_task(self):
+        task = TasksFactory().create_tasks()
+        dict = Task.objects.all()
+        response = self.client.delete(
+            f'{self.url}tasks/{task.id}/',
+        )
+        
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(dict.count(), 0)
+        
+    #actualizar tarea
+    def test_update_task(self):
+        task = TasksFactory().create_tasks()
+        response = self.client.put(
+            f'{self.url}tasks/{task.id}/',
+            data={'title': 'Titulo actualizado',},
+            format='json'
+        )
+        
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['title'], 'Titulo actualizado')
+        
         
